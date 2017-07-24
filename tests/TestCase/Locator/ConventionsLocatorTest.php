@@ -57,6 +57,26 @@ class ConventionsLocatorTest extends TestCase
         $this->assertInstanceOf($handlerName, $name);
     }
 
+    /**
+     * @expectedException League\Tactician\Exception\MissingHandlerException
+     */
+    public function testGetHandlerForCommandMissing()
+    {
+        $locator = new ConventionsLocator();
+
+        $locator->getHandlerForCommand('App\\Command\\BarCommand');
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     */
+    public function testGetHandlerForCommandInvalid()
+    {
+        $locator = new ConventionsLocator();
+
+        $locator->getHandlerForCommand('Foo');
+    }
+
     public function commandNameProvider()
     {
         return [
