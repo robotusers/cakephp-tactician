@@ -30,6 +30,7 @@ matrix:
 
 before_script:
   - composer install
+  - if [[ $PHPSTAN > 0 ]]; then composer require phpstan/phpstan; fi
 
 script:
   - if [[ $DEFAULT = 1 ]]; then vendor/bin/phpunit --coverage-clover=coverage.xml; fi
