@@ -27,8 +27,11 @@ $connection = ConnectionManager::get('default');
 
 $commandBus = new CommandBus(
     [
-        //add transaction middleware
-        new TransactionMiddleware($connection),
+        //CakePHP transaction middleware
+        new TransactionMiddleware($connection, [
+            FooCommand::class,
+            BarCommand::class,
+        ]),
         new CommandHandlerMiddleware($extractor, $locator, $inflector)
     ]
 );
