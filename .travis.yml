@@ -29,7 +29,7 @@ matrix:
     - env: PHPSTAN=7 DEFAULT=0
 
 before_script:
-  - if [[ $DEFAULT = 1 ]]; then composer install; fi
+  - composer install
 
 script:
   - if [[ $DEFAULT = 1 ]]; then vendor/bin/phpunit --coverage-clover=coverage.xml; fi
