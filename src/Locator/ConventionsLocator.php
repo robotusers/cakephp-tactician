@@ -80,7 +80,7 @@ class ConventionsLocator extends ObjectRegistry implements HandlerLocator
      * Converts backslashes into slashes.
      *
      * @param string $string Namespace
-     * @return type
+     * @return string
      */
     protected function _fixNamespace($string)
     {
@@ -100,7 +100,7 @@ class ConventionsLocator extends ObjectRegistry implements HandlerLocator
      */
     protected function _resolveClassName($class)
     {
-        return (string)App::className($class, 'Handler', 'Handler') ?: null;
+        return App::className($class, 'Handler', 'Handler');
     }
 
     /**
