@@ -3,6 +3,7 @@
 	"description": "CakePHP Tactician plugin",
 	"homepage": "https://github.com/robotusers/cakephp-tactician",
 	"type": "cakephp-plugin",
+	"license": "MIT",
 	"require": {
 		"php": ">=5.6",
 		"cakephp/core": "~3.1",
