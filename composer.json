@@ -9,10 +9,16 @@
 		"cakephp/datasource": "~3.1",
 		"league/tactician": "^1.0"
 	},
+	"suggest": {
+		"cakephp/event": "If you want to use TacticianListener.",
+		"robotusers/commander": "If you want to use TacticianListener."
+	},
 	"require-dev": {
-		"cakephp/cakephp": "~3.3",
+		"cakephp/cakephp": "~3.3.0",
 		"cakephp/cakephp-codesniffer": "*",
-		"phpunit/phpunit": "^5.6|^6.0"
+		"cakephp/event": "~3.1",
+		"phpunit/phpunit": "^5.6|^6.0",
+		"robotusers/commander": "*"
 	},
 	"autoload": {
 		"psr-4": {
