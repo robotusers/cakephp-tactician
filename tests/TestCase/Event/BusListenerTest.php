@@ -31,7 +31,7 @@ use InvalidArgumentException;
 use League\Tactician\CommandBus;
 use Robotusers\Commander\CommandBusAwareInterface;
 use Robotusers\Commander\CommandBusInterface;
-use Robotusers\Tactician\Event\TacticianListener;
+use Robotusers\Tactician\Event\BusListener;
 use stdClass;
 
 /**
@@ -39,7 +39,7 @@ use stdClass;
  *
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class TacticianListenerTest extends TestCase
+class BusListenerTest extends TestCase
 {
     public function setUp()
     {
@@ -51,7 +51,7 @@ class TacticianListenerTest extends TestCase
     public function testCommandBusInterface()
     {
         $commandBus = $this->createMock(CommandBusInterface::class);
-        $listener = new TacticianListener($commandBus);
+        $listener = new BusListener($commandBus);
 
         $this->assertSame($commandBus, $listener->getCommandBus());
     }
@@ -59,7 +59,7 @@ class TacticianListenerTest extends TestCase
     public function testCommandBusTactician()
     {
         $commandBus = $this->createMock(CommandBus::class);
-        $listener = new TacticianListener($commandBus);
+        $listener = new BusListener($commandBus);
 
         $this->assertInstanceOf(CommandBusInterface::class, $listener->getCommandBus());
     }
@@ -71,13 +71,13 @@ class TacticianListenerTest extends TestCase
     public function testCommandBusInvalid()
     {
         $commandBus = new stdClass();
-        new TacticianListener($commandBus);
+        new BusListener($commandBus);
     }
 
     public function testImplementedEvents()
     {
         $commandBus = $this->createMock(CommandBusInterface::class);
-        $listener = new TacticianListener($commandBus);
+        $listener = new BusListener($commandBus);
 
         $events = $listener->implementedEvents();
         $this->assertEquals([
@@ -89,7 +89,7 @@ class TacticianListenerTest extends TestCase
     public function testImplementedEventsCustom()
     {
         $commandBus = $this->createMock(CommandBusInterface::class);
-        $listener = new TacticianListener($commandBus, [
+        $listener = new BusListener($commandBus, [
             'events' => 'Foo.bar'
         ]);
 
@@ -101,7 +101,7 @@ class TacticianListenerTest extends TestCase
     public function testInjectCommandBus()
     {
         $commandBus = $this->createMock(CommandBusInterface::class);
-        $listener = new TacticianListener($commandBus);
+        $listener = new BusListener($commandBus);
 
         $subject = $this->createMock(CommandBusAwareInterface::class);
         $subject = $this->createMock(CommandBusAwareInterface::class);

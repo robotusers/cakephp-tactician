@@ -39,7 +39,7 @@ use Robotusers\Commander\CommandBusInterface;
  *
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class TacticianListener implements EventListenerInterface
+class BusListener implements EventListenerInterface
 {
 
     use InstanceConfigTrait;

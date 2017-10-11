@@ -30,7 +30,7 @@ use Cake\TestSuite\TestCase;
 use Robotusers\Commander\CommandBusAwareInterface;
 use Robotusers\Commander\CommandBusInterface;
 use Robotusers\Tactician\Event\QuickStart;
-use Robotusers\Tactician\Event\TacticianListener;
+use Robotusers\Tactician\Event\BusListener;
 
 /**
  * Description of QuickStartTest
@@ -57,7 +57,7 @@ class QuickStartTest extends TestCase
             $this->assertNotEmpty($listeners);
 
             $listener = $listeners[0]['callable'];
-            $this->assertInstanceOf(TacticianListener::class, $listener[0]);
+            $this->assertInstanceOf(BusListener::class, $listener[0]);
             $this->assertEquals('injectCommandBus', $listener[1]);
         }
     }

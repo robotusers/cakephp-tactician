@@ -51,7 +51,7 @@ class QuickStart
             $commandBus = Factory::createCommandBus();
         }
 
-        $listener = new TacticianListener($commandBus, $config);
+        $listener = new BusListener($commandBus, $config);
 
         EventManager::instance()->on($listener);
     }
