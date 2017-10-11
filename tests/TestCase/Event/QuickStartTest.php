@@ -29,8 +29,8 @@ use Cake\Event\EventManager;
 use Cake\TestSuite\TestCase;
 use Robotusers\Commander\CommandBusAwareInterface;
 use Robotusers\Commander\CommandBusInterface;
-use Robotusers\Tactician\Event\QuickStart;
 use Robotusers\Tactician\Event\BusListener;
+use Robotusers\Tactician\Event\QuickStart;
 
 /**
  * Description of QuickStartTest
