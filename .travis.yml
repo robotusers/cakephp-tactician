@@ -31,6 +31,7 @@ matrix:
 before_script:
   - composer install
   - if [[ $PHPSTAN > 0 ]]; then composer require phpstan/phpstan; fi
+  - if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.1" ]]; then composer require robotusers/commander; fi
 
 script:
   - if [[ $DEFAULT = 1 ]]; then vendor/bin/phpunit --coverage-clover=coverage.xml; fi

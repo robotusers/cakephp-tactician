@@ -41,6 +41,13 @@ use stdClass;
  */
 class TacticianListenerTest extends TestCase
 {
+    public function setUp()
+    {
+        $this->skipIf(version_compare(PHP_VERSION, '7.1') < 0);
+
+        parent::setUp();
+    }
+
     public function testCommandBusInterface()
     {
         $commandBus = $this->createMock(CommandBusInterface::class);

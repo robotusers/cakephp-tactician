@@ -39,6 +39,13 @@ use Robotusers\Tactician\Event\TacticianListener;
  */
 class QuickStartTest extends TestCase
 {
+    public function setUp()
+    {
+        $this->skipIf(version_compare(PHP_VERSION, '7.1') < 0);
+
+        parent::setUp();
+    }
+
     public function testSetUp()
     {
         QuickStart::setUp();
