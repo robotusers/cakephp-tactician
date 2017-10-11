@@ -14,9 +14,8 @@
 		"robotusers/commander": "If you want to use TacticianListener."
 	},
 	"require-dev": {
-		"cakephp/cakephp": "~3.3.0",
+		"cakephp/cakephp": "~3.5",
 		"cakephp/cakephp-codesniffer": "*",
-		"cakephp/event": "~3.1",
 		"phpunit/phpunit": "^5.6|^6.0",
 		"robotusers/commander": "*"
 	},
@@ -31,5 +30,16 @@
 			"Robotusers\\Tactician\\Test\\": "tests",
 			"App\\": "tests/test_app"
 		}
-	}
+	},
+    "scripts": {
+        "check": [
+            "@test",
+            "@stan-check",
+            "@cs-check"
+        ],
+        "cs-check": "phpcs --colors -p ./src ./tests",
+        "cs-fix": "phpcbf --colors ./src ./tests",
+        "stan-check": "phpstan analyse ./src -l 1",
+        "test": "phpunit --colors=always"
+    }
 }
