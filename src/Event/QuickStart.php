@@ -31,8 +31,6 @@ use Robotusers\Commander\CommandBusInterface;
 use Robotusers\Tactician\Bus\Factory;
 
 /**
- * Description of QuickStart
- *
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
 class QuickStart

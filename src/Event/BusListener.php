@@ -35,7 +35,7 @@ use Robotusers\Commander\CommandBusAwareInterface;
 use Robotusers\Commander\CommandBusInterface;
 
 /**
- * Description of TacticianListener
+ * Event listener for a command bus.
  *
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
