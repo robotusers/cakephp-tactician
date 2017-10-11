@@ -15,6 +15,114 @@ bin/cake plugin load Robotusers/Tactician
 
 ## Using the plugin
 
+### CakePHP integration
+
+This plugin provides Controller and Model integration through [Commander](https://github.com/robotusers/commander) library.
+
+Commander is a command bus abstraction library for PHP which enables you to decouple your code from a concrete command bus implementation.
+
+#### Using the Commander (PHP 7.1+)
+
+Install `robotusers/commander`:
+
+```
+composer require robotusers/commander
+```
+
+Set up your controllers:
+
+```php
+use Cake\Controller\Controller;
+use Robotusers\Commander\CommandBusAwareInterface;
+use Robotusers\Commander\CommandBusAwareTrait;
+
+class OrdersController extends Controller implements CommandBusAwareInterface
+{
+   use CommandBusAwareTrait;
+
+   public function makeOrder()
+   {
+        // ...
+        $command = new MakeOrderCommand($data);
+        $this->handleCommand($command);
+        // ...
+   }
+
+}
+```
+
+For more information, read [the docs](https://github.com/robotusers/commander/blob/master/README.md).
+
+#### Application hook (CakePHP 3.3+)
+
+If your application supports middleware you can configure the command bus using an application hook.
+
+```php
+use Cake\Http\BaseApplication;
+use League\Tactician\CommandBus;
+use Robotusers\Tactician\Core\BusApplicationInterface;
+use Robotusers\Tactician\Core\BusMiddleware;
+
+class Application extends BaseApplication implements BusApplicationInterface
+{
+    public function commandBus()
+    {
+        $bus = new CommandBus([
+            // your middleware
+        ]);
+
+        return $bus;
+    }
+
+    public function middleware($middleware)
+    {
+        // ...
+        $middleware->add(new BusMiddleware($this));
+        // ...
+
+        return $middleware;
+    }
+}
+```
+
+You can use helper factory methods for building `CommandBus` or CakePHP convention enabled `CommandHandlerMiddleware`:
+
+```php
+use Robotusers\Tactician\Bus\Factory;
+
+public function commandBus()
+{
+    return Factory::createCommandBus([
+        // your middleware
+        Factory::createCommandHandlerMiddleware();
+    ]);
+}
+```
+
+#### Bootstrap
+
+If you're still on pre 3.3 stack you can set up the listener in your `bootstrap.php` file.
+
+You can use build in *quick start* class:
+
+```php
+// bootstrap.php
+
+use Robotusers\Tactician\Event\QuickStart;
+
+QuickStart::setUp($commandBus);
+```
+
+`QuickStart` can load simple CakePHP convention enabled bus if it hasn't been provided:
+
+```php
+// bootstrap.php
+
+use Robotusers\Tactician\Event\QuickStart;
+
+QuickStart::setUp();
+```
+
 ### Conventions locator
 
 CakePHP Conventions locator will look for command handlers based on a convention,
