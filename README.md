@@ -144,6 +144,20 @@ $commandBus = new CommandBus(
 );
 ```
 
+You can change default namespace and suffix using configuration options:
+
+```php
+$locator = new ConventionsLocator([
+    'commandNamespace' => 'Bus\\Command',
+    'commandSuffix' => '',
+    'handlerNamespace' => 'Bus\\Handler',
+    'handlerSuffix' => '',
+]);
+```
+
+In this example `App\Bus\Command\MakeOrder` command will map to `App\Bus\Handler\MakeOrder` handler. Note a different namespace and no suffix.
+
+
 ### Transaction middleware
 
 Transaction middleware is a wrapper for CakePHP `ConnectionInterface::transactional()`.
