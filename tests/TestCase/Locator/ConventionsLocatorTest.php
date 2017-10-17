@@ -38,9 +38,9 @@ class ConventionsLocatorTest extends TestCase
     /**
      * @dataProvider commandNameProvider
      */
-    public function testResolveHandlerName($commandName, $handlerName)
+    public function testResolveHandlerName($commandName, $handlerName, $config)
     {
-        $locator = new ConventionsLocator();
+        $locator = new ConventionsLocator($config);
 
         $name = $locator->resolveHandlerName($commandName);
         $this->assertEquals($handlerName, $name);
@@ -49,9 +49,9 @@ class ConventionsLocatorTest extends TestCase
     /**
      * @dataProvider commandHandlerProvider
      */
-    public function testGetHandlerForCommand($commandName, $handlerName)
+    public function testGetHandlerForCommand($commandName, $handlerName, $config)
     {
-        $locator = new ConventionsLocator();
+        $locator = new ConventionsLocator($config);
 
         $name = $locator->getHandlerForCommand($commandName);
         $this->assertInstanceOf($handlerName, $name);
@@ -79,17 +79,37 @@ class ConventionsLocatorTest extends TestCase
 
     public function commandNameProvider()
     {
+        $config = [
+            'commandNamespace' => 'Bus\\Command',
+            'commandSuffix' => 'BusCommand',
+            'handlerNamespace' => 'Bus\\Handler',
+            'handlerSuffix' => 'BusHandler',
+        ];
+
         return [
-            ['App\\Command\\FooCommand', 'Foo'],
-            ['App\\Command\\Foo', 'Foo'],
-            ['My\\Plugin\\Command\\BarCommand', 'My/Plugin.Bar']
+            ['App\\Command\\FooCommand', 'Foo', []],
+            ['App\\Command\\Foo', 'Foo', []],
+            ['App\\Command\\FooCommand', 'Foo', []],
+            ['App\\Command\\Foo', 'Foo', []],
+            ['My\\Plugin\\Command\\BarCommand', 'My/Plugin.Bar', []],
+            ['App\\Bus\\Command\\FooBusCommand', 'Foo', $config],
+            ['App\\Bus\\Command\\Foo', 'Foo', $config],
+            ['App\\Bus\\Command\\FooBusCommand', 'Foo', $config],
+            ['App\\Bus\\Command\\Foo', 'Foo', $config],
+            ['My\\Plugin\\Bus\\Command\\BarBusCommand', 'My/Plugin.Bar', $config]
         ];
     }
 
     public function commandHandlerProvider()
     {
         return [
-            ['App\\Command\\FooCommand', 'App\\Handler\\FooHandler'],
+            ['App\\Command\\FooCommand', 'App\\Handler\\FooHandler', []],
+            ['App\\Bus\\Command\\FooBusCommand', 'App\\Bus\\Handler\\FooBusHandler', [
+                'commandNamespace' => 'Bus\\Command',
+                'commandSuffix' => 'BusCommand',
+                'handlerNamespace' => 'Bus\\Handler',
+                'handlerSuffix' => 'BusHandler',
+            ]],
         ];
     }
 }

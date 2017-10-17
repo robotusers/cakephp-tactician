@@ -27,6 +27,7 @@ namespace Robotusers\Tactician\Locator;
 
 use Cake\Core\App;
 use Cake\Core\Configure;
+use Cake\Core\InstanceConfigTrait;
 use Cake\Core\ObjectRegistry;
 use InvalidArgumentException;
 use League\Tactician\Exception\MissingHandlerException;
@@ -42,6 +43,29 @@ use League\Tactician\Handler\Locator\HandlerLocator;
  */
 class ConventionsLocator extends ObjectRegistry implements HandlerLocator
 {
+    use InstanceConfigTrait;
+
+    /**
+     * Config.
+     *
+     * @var array
+     */
+    protected $_defaultConfig = [
+        'commandNamespace' => 'Command',
+        'commandSuffix' => 'Command',
+        'handlerNamespace' => 'Handler',
+        'handlerSuffix' => 'Handler'
+    ];
+
+    /**
+     * Constructor.
+     *
+     * @param array $config Config array.
+     */
+    public function __construct(array $config = [])
+    {
+        $this->config($config);
+    }
 
     /**
      * {@inheritDoc}
@@ -61,7 +85,9 @@ class ConventionsLocator extends ObjectRegistry implements HandlerLocator
      */
     public function resolveHandlerName($commandName)
     {
-        $split = explode('\\Command\\', $commandName);
+        $namespace = $this->_config['commandNamespace'];
+
+        $split = explode("\\$namespace\\", $commandName);
         if (count($split) < 2) {
             throw new InvalidArgumentException('Invalid command name.');
         }
@@ -73,7 +99,9 @@ class ConventionsLocator extends ObjectRegistry implements HandlerLocator
             $name = $plugin . '.' . $name;
         }
 
-        return preg_replace('/Command$/', '', $name);
+        $suffix = $this->_config['commandSuffix'];
+
+        return preg_replace("/$suffix$/", '', $name);
     }
 
     /**
@@ -100,7 +128,7 @@ class ConventionsLocator extends ObjectRegistry implements HandlerLocator
      */
     protected function _resolveClassName($class)
     {
-        return App::className($class, 'Handler', 'Handler');
+        return App::className($class, $this->_config['handlerNamespace'], $this->_config['handlerSuffix']);
     }
 
     /**
