@@ -53,6 +53,8 @@ class OrdersController extends Controller implements CommandBusAwareInterface
 
 For more information, read [the docs](https://github.com/robotusers/commander/blob/master/README.md).
 
+Next you should configure the command bus which will be injected into your controllers and models that implement the `CommandBusAwareInterface`.
+
 #### Application hook (CakePHP 3.3+)
 
 If your application supports middleware you can configure the command bus using an application hook.
@@ -98,6 +100,8 @@ public function commandBus()
     ]);
 }
 ```
+
+The command bus configured here will be injected into controllers and models in `Model.initialize` and `Controller.initialize` event listener.
 
 #### Bootstrap
 
