@@ -6,10 +6,12 @@
 
 CakePHP plugin for `league/tactician`.
 
+**NOTE: The plugin is under development.**
+
 ## Installation
 
 ```
-composer require robotusers/cakephp-tactician
+composer require robotusers/cakephp-tactician:dev-master
 bin/cake plugin load Robotusers/Tactician
 ```
 
