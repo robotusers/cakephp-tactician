@@ -39,7 +39,7 @@
         ],
         "cs-check": "phpcs --colors -p ./src ./tests",
         "cs-fix": "phpcbf --colors ./src ./tests",
-        "stan-check": "phpstan analyse ./src -l 1",
+        "stan-check": "phpstan analyse ./src -l 7",
         "test": "phpunit --colors=always"
     }
 }

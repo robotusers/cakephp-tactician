@@ -84,7 +84,7 @@ class TacticianAdapter extends BaseAdapter
      * Resolves command class name.
      *
      * @param string $name Name,
-     * @return string
+     * @return string|bool
      */
     protected function resolveClassName($name)
     {
