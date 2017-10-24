@@ -22,19 +22,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace App\Model\Command;
+
+namespace Robotusers\Tactician\Bus;
+
+use Robotusers\Commander\CommandBusAwareTrait as BaseTrait;
 
 /**
+ *
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class FooCommand
+trait CommandBusAwareTrait
 {
-    public $arg1;
-    public $arg2;
+    use BaseTrait {
+        handleCommand as private __handleCommand;
+    }
 
-    public function __construct($arg1 = null, $arg2 = null)
+    /**
+     * Wrapper for command bus `handle()` method.
+     *
+     * @param mixed $command Command class.
+     * @param mixed $args Command arguments.
+     * @return mixed
+     */
+    public function handleCommand($command, ...$args)
     {
-        $this->arg1 = $arg1;
-        $this->arg2 = $arg2;
+        return $this->getCommandBus()->handle($command, ...$args);
     }
 }

@@ -26,26 +26,19 @@ namespace Robotusers\Tactician\Test\TestCase\Event;
 
 use Cake\Event\Event;
 use Cake\Event\EventManager;
-use Cake\TestSuite\TestCase;
 use Robotusers\Commander\CommandBusAwareInterface;
 use Robotusers\Commander\CommandBusInterface;
 use Robotusers\Tactician\Event\BusListener;
 use Robotusers\Tactician\Event\QuickStart;
+use Robotusers\Tactician\Test\TestCase\Php71TestCase;
 
 /**
  * Description of QuickStartTest
  *
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class QuickStartTest extends TestCase
+class QuickStartTest extends Php71TestCase
 {
-    public function setUp()
-    {
-        $this->skipIf(version_compare(PHP_VERSION, '7.1') < 0);
-
-        parent::setUp();
-    }
-
     public function testSetUp()
     {
         QuickStart::setUp();

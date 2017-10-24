@@ -36,7 +36,7 @@ Set up your controllers:
 ```php
 use Cake\Controller\Controller;
 use Robotusers\Commander\CommandBusAwareInterface;
-use Robotusers\Commander\CommandBusAwareTrait;
+use Robotusers\Tactician\Bus\CommandBusAwareTrait;
 
 class OrdersController extends Controller implements CommandBusAwareInterface
 {
@@ -47,6 +47,10 @@ class OrdersController extends Controller implements CommandBusAwareInterface
         // ...
         $command = new MakeOrderCommand($data);
         $this->handleCommand($command);
+        // ...
+
+        // or using quick convention enabled command handling:
+        $this->handleCommand('MakeOrder', $data);
         // ...
    }
 

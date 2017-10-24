@@ -22,19 +22,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace App\Model\Command;
+
+namespace Robotusers\Tactician\Test;
+
+use Robotusers\Commander\CommandBusInterface;
+use Robotusers\Tactician\Bus\CommandBusAwareTrait;
+use Robotusers\Tactician\Test\TestCase\Php71TestCase;
+use stdClass;
 
 /**
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class FooCommand
+class CommandBusAwareTraitTest extends Php71TestCase
 {
-    public $arg1;
-    public $arg2;
 
-    public function __construct($arg1 = null, $arg2 = null)
+    public function testHandleCommand()
     {
-        $this->arg1 = $arg1;
-        $this->arg2 = $arg2;
+        $object = $this->getMockForTrait(CommandBusAwareTrait::class);
+        $bus = $this->createMock(CommandBusInterface::class);
+        $command = 'Foo';
+        $argument = 'Bar';
+        $result = new stdClass();
+
+        $bus->expects($this->once())
+            ->method('handle')
+            ->with($command, $argument)
+            ->willReturn($result);
+
+        $object->setCommandBus($bus);
+        $return = $object->handleCommand($command, $argument);
+        $this->assertSame($result, $return);
     }
 }

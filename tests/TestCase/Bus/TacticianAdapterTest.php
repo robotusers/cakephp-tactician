@@ -22,19 +22,38 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace App\Model\Command;
+
+namespace Robotusers\Tactician\Test\TestCase\Bus;
+
+use App\Model\Command\FooCommand;
+use League\Tactician\CommandBus;
+use Robotusers\Tactician\Bus\TacticianAdapter;
+use Robotusers\Tactician\Test\TestCase\Php71TestCase;
 
 /**
+ * Description of TacticianAdapter
+ *
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class FooCommand
+class TacticianAdapterTest extends Php71TestCase
 {
-    public $arg1;
-    public $arg2;
-
-    public function __construct($arg1 = null, $arg2 = null)
+    public function testHandle()
     {
-        $this->arg1 = $arg1;
-        $this->arg2 = $arg2;
+        $commandBus = $this->createMock(CommandBus::class);
+        $commandBus->expects($this->once())
+            ->method('handle')
+            ->with($this->logicalAnd(
+                $this->isInstanceOf(FooCommand::class),
+                $this->callback(function ($command) {
+                    return $command->arg1 === 'Bar';
+                }),
+                $this->callback(function ($command) {
+                    return $command->arg2 === 'Baz';
+                })
+            ));
+
+        $adapter = new TacticianAdapter($commandBus);
+
+        $adapter->handle('Foo', 'Bar', 'Baz');
     }
 }

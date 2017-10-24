@@ -26,12 +26,12 @@
 namespace Robotusers\Tactician\Test\TestCase\Event;
 
 use Cake\Event\Event;
-use Cake\TestSuite\TestCase;
 use InvalidArgumentException;
 use League\Tactician\CommandBus;
 use Robotusers\Commander\CommandBusAwareInterface;
 use Robotusers\Commander\CommandBusInterface;
 use Robotusers\Tactician\Event\BusListener;
+use Robotusers\Tactician\Test\TestCase\Php71TestCase;
 use stdClass;
 
 /**
@@ -39,14 +39,8 @@ use stdClass;
  *
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class BusListenerTest extends TestCase
+class BusListenerTest extends Php71TestCase
 {
-    public function setUp()
-    {
-        $this->skipIf(version_compare(PHP_VERSION, '7.1') < 0);
-
-        parent::setUp();
-    }
 
     public function testCommandBusInterface()
     {

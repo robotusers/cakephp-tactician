@@ -22,19 +22,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace App\Model\Command;
+namespace Robotusers\Tactician\Test\TestCase;
+
+use Cake\TestSuite\TestCase;
 
 /**
+ * Description of Php71TestCase
+ *
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class FooCommand
+class Php71TestCase extends TestCase
 {
-    public $arg1;
-    public $arg2;
-
-    public function __construct($arg1 = null, $arg2 = null)
+    public function setUp()
     {
-        $this->arg1 = $arg1;
-        $this->arg2 = $arg2;
+        $this->skipIf(version_compare(PHP_VERSION, '7.1') < 0);
+
+        parent::setUp();
     }
 }

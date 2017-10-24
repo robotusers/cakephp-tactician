@@ -30,9 +30,9 @@ use Cake\Event\Event;
 use Cake\Event\EventListenerInterface;
 use InvalidArgumentException;
 use League\Tactician\CommandBus;
-use Robotusers\Commander\Adapter\TacticianAdapter;
 use Robotusers\Commander\CommandBusAwareInterface;
 use Robotusers\Commander\CommandBusInterface;
+use Robotusers\Tactician\Bus\TacticianAdapter;
 
 /**
  * Event listener for a command bus.
@@ -55,7 +55,8 @@ class BusListener implements EventListenerInterface
         'events' => [
             'Controller.initialize',
             'Model.initialize'
-        ]
+        ],
+        'adapter' => []
     ];
 
     /**
@@ -69,8 +70,8 @@ class BusListener implements EventListenerInterface
      */
     public function __construct($commandBus, array $config = [])
     {
-        $this->setCommandBus($commandBus);
         $this->config($config);
+        $this->setCommandBus($commandBus);
     }
 
     /**
@@ -91,7 +92,7 @@ class BusListener implements EventListenerInterface
                 throw new InvalidArgumentException($message);
             }
 
-            $commandBus = new TacticianAdapter($commandBus);
+            $commandBus = new TacticianAdapter($commandBus, $this->_config['adapter']);
         }
 
         $this->commandBus = $commandBus;
