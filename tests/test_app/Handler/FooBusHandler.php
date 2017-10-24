@@ -27,7 +27,7 @@ namespace App\Handler;
 /**
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class FooHandler
+class FooBusHandler
 {
 
 }

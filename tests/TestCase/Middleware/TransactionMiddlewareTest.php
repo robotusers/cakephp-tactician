@@ -24,7 +24,7 @@
  */
 namespace Robotusers\Tactician\Test\TestCase\Middleware;
 
-use App\Command\FooCommand;
+use App\Model\Command\FooCommand;
 use Cake\Datasource\ConnectionInterface;
 use Cake\TestSuite\TestCase;
 use Robotusers\Tactician\Middleware\TransactionMiddleware;

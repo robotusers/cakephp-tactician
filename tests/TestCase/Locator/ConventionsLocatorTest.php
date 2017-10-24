@@ -64,7 +64,7 @@ class ConventionsLocatorTest extends TestCase
     {
         $locator = new ConventionsLocator();
 
-        $locator->getHandlerForCommand('App\\Command\\BarCommand');
+        $locator->getHandlerForCommand('App\\Model\\Command\\BarCommand');
     }
 
     /**
@@ -80,34 +80,34 @@ class ConventionsLocatorTest extends TestCase
     public function commandNameProvider()
     {
         $config = [
-            'commandNamespace' => 'Bus\\Command',
+            'commandNamespace' => 'Command',
             'commandSuffix' => 'BusCommand',
-            'handlerNamespace' => 'Bus\\Handler',
+            'handlerNamespace' => 'Handler',
             'handlerSuffix' => 'BusHandler',
         ];
 
         return [
-            ['App\\Command\\FooCommand', 'Foo', []],
-            ['App\\Command\\Foo', 'Foo', []],
-            ['App\\Command\\FooCommand', 'Foo', []],
-            ['App\\Command\\Foo', 'Foo', []],
-            ['My\\Plugin\\Command\\BarCommand', 'My/Plugin.Bar', []],
-            ['App\\Bus\\Command\\FooBusCommand', 'Foo', $config],
-            ['App\\Bus\\Command\\Foo', 'Foo', $config],
-            ['App\\Bus\\Command\\FooBusCommand', 'Foo', $config],
-            ['App\\Bus\\Command\\Foo', 'Foo', $config],
-            ['My\\Plugin\\Bus\\Command\\BarBusCommand', 'My/Plugin.Bar', $config]
+            ['App\\Model\\Command\\FooCommand', 'Foo', []],
+            ['App\\Model\\Command\\Foo', 'Foo', []],
+            ['App\\Model\\Command\\FooCommand', 'Foo', []],
+            ['App\\Model\\Command\\Foo', 'Foo', []],
+            ['My\\Plugin\\Model\\Command\\BarCommand', 'My/Plugin.Bar', []],
+            ['App\\Command\\FooBusCommand', 'Foo', $config],
+            ['App\\Command\\Foo', 'Foo', $config],
+            ['App\\Command\\FooBusCommand', 'Foo', $config],
+            ['App\\Command\\Foo', 'Foo', $config],
+            ['My\\Plugin\\Command\\BarBusCommand', 'My/Plugin.Bar', $config]
         ];
     }
 
     public function commandHandlerProvider()
     {
         return [
-            ['App\\Command\\FooCommand', 'App\\Handler\\FooHandler', []],
-            ['App\\Bus\\Command\\FooBusCommand', 'App\\Bus\\Handler\\FooBusHandler', [
-                'commandNamespace' => 'Bus\\Command',
+            ['App\\Model\\Command\\FooCommand', 'App\\Model\\Handler\\FooHandler', []],
+            ['App\\Command\\FooBusCommand', 'App\\Handler\\FooBusHandler', [
+                'commandNamespace' => 'Command',
                 'commandSuffix' => 'BusCommand',
-                'handlerNamespace' => 'Bus\\Handler',
+                'handlerNamespace' => 'Handler',
                 'handlerSuffix' => 'BusHandler',
             ]],
         ];
