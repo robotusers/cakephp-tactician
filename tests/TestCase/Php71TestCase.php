@@ -22,38 +22,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+namespace Robotusers\Tactician\Test\TestCase;
 
-namespace Robotusers\Tactician\Test\TestCase\Bus;
-
-use App\Model\Command\FooCommand;
-use League\Tactician\CommandBus;
-use Robotusers\Tactician\Bus\TacticianAdapter;
-use Robotusers\Tactician\Test\TestCase\Php71TestCase;
+use Cake\TestSuite\TestCase;
 
 /**
- * Description of TacticianAdapter
+ * Description of Php71TestCase
  *
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class TacticianAdapterTest extends Php71TestCase
+class Php71TestCase extends TestCase
 {
-    public function testHandle()
+    public function setUp()
     {
-        $commandBus = $this->createMock(CommandBus::class);
-        $commandBus->expects($this->once())
-            ->method('handle')
-            ->with($this->logicalAnd(
-                $this->isInstanceOf(FooCommand::class),
-                $this->callback(function ($command) {
-                    return $command->arg1 === 'Bar';
-                }),
-                $this->callback(function ($command) {
-                    return $command->arg2 === 'Baz';
-                })
-            ));
+        $this->skipIf(version_compare(PHP_VERSION, '7.1') < 0);
 
-        $adapter = new TacticianAdapter($commandBus);
-
-        $adapter->handle('Foo', 'Bar', 'Baz');
+        parent::setUp();
     }
 }
