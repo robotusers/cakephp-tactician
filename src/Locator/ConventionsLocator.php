@@ -51,9 +51,9 @@ class ConventionsLocator extends ObjectRegistry implements HandlerLocator
      * @var array
      */
     protected $_defaultConfig = [
-        'commandNamespace' => 'Command',
+        'commandNamespace' => 'Model\\Command',
         'commandSuffix' => 'Command',
-        'handlerNamespace' => 'Handler',
+        'handlerNamespace' => 'Model\\Handler',
         'handlerSuffix' => 'Handler'
     ];
 

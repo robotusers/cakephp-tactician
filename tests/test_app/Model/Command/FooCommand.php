@@ -22,12 +22,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace App\Bus\Handler;
+namespace App\Model\Command;
 
 /**
  * @author Robert Pustułka <r.pustulka@robotusers.com>
  */
-class FooBusHandler
+class FooCommand
 {
 
 }

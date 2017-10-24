@@ -132,8 +132,8 @@ QuickStart::setUp();
 ### Conventions locator
 
 CakePHP Conventions locator will look for command handlers based on a convention,
-that commands should reside under `App\Command\` namespace and be suffixed with `Command` string
-and handlers should reside under `App\Handler\` namespace and be suffixed with `Handler` string.
+that commands should reside under `App\Model\Command\` namespace and be suffixed with `Command` string
+and handlers should reside under `App\Model\Handler\` namespace and be suffixed with `Handler` string.
 
 
 ```php
@@ -150,18 +150,20 @@ $commandBus = new CommandBus(
 );
 ```
 
+In this example `App\Model\Command\MakeOrderCommand` command will map to `App\Model\Handler\MakeOrderHandler` handler.
+
 You can change default namespace and suffix using configuration options:
 
 ```php
 $locator = new ConventionsLocator([
-    'commandNamespace' => 'Bus\\Command',
+    'commandNamespace' => 'Command',
     'commandSuffix' => '',
-    'handlerNamespace' => 'Bus\\Handler',
+    'handlerNamespace' => 'Handler',
     'handlerSuffix' => '',
 ]);
 ```
 
-In this example `App\Bus\Command\MakeOrder` command will map to `App\Bus\Handler\MakeOrder` handler. Note a different namespace and no suffix.
+In this example `App\Command\MakeOrder` command will map to `App\Handler\MakeOrder` handler. Note a different namespace and no suffix.
 
 
 ### Transaction middleware
