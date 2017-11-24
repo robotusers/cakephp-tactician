@@ -60,14 +60,18 @@ class TransactionMiddleware implements Middleware
      * Consrtuctor.
      *
      * @param ConnectionInterface $connection Connection instance.
-     * @param string[] $commands A list of suported command class names.
+     * @param string[]|bool $commands A list of suported command class names or `true` to include all commands.
      * @param string[] $excluded A list of excluded command class names.
      */
-    public function __construct(ConnectionInterface $connection, array $commands = [], array $excluded = [])
+    public function __construct(ConnectionInterface $connection, $commands = [], array $excluded = [])
     {
         $this->connection = $connection;
-        foreach ($commands as $name) {
-            $this->addCommand($name);
+        if ($commands === true) {
+            $this->addAll();
+        } else {
+            foreach ((array)$commands as $name) {
+                $this->addCommand($name);
+            }
         }
         foreach ($excluded as $name) {
             $this->excludeCommand($name);

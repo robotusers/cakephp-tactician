@@ -40,13 +40,10 @@ class TransactionMiddlewareTest extends TestCase
     /**
      * @dataProvider commandNameProvider
      */
-    public function testNeedsTransaction($command, $result, $include, $exclude, $all)
+    public function testNeedsTransaction($command, $result, $include, $exclude)
     {
         $connection = $this->createMock(ConnectionInterface::class);
         $middleware = new TransactionMiddleware($connection, $include, $exclude);
-        if ($all) {
-            $middleware->addAll();
-        }
 
         $this->assertSame($result, $middleware->needsTransaction($command));
     }
@@ -125,11 +122,11 @@ class TransactionMiddlewareTest extends TestCase
     public function commandNameProvider()
     {
         return [
-            [new FooCommand, true, [FooCommand::class], [], false],
-            [new stdClass, false, [FooCommand::class], [], false],
-            [new FooCommand, false, [FooCommand::class], [FooCommand::class], false],
-            [new FooCommand, true, [], [], true],
-            [new FooCommand, false, [], [FooCommand::class], true]
+            [new FooCommand, true, [FooCommand::class], []],
+            [new stdClass, false, [FooCommand::class], []],
+            [new FooCommand, false, [FooCommand::class], [FooCommand::class]],
+            [new FooCommand, true, true, []],
+            [new FooCommand, false, true, [FooCommand::class]]
         ];
     }
 }
