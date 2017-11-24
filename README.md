@@ -173,7 +173,7 @@ In this example `App\Command\MakeOrder` command will map to `App\Handler\MakeOrd
 ### Transaction middleware
 
 Transaction middleware is a wrapper for CakePHP `ConnectionInterface::transactional()`.
-It does not work with all commands by default. You should include a list of supported commands.
+You need to provide a list of supported commands.
 
 A list supports FQCN or convention supported name (eq `Plugin.Name`).
 
@@ -192,4 +192,13 @@ $commandBus = new CommandBus(
         $commandHandlerMiddleware
     ]
 );
+```
+
+You can include all commands by default and exclude each one explicitly:
+
+```php
+$middleware = new TransactionMiddleware($connection);
+$middleware
+    ->addAll()
+    ->excludeCommand(FooCommand::class);
 ```
