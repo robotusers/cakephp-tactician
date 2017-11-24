@@ -37,28 +37,40 @@ use League\Tactician\Middleware;
 class TransactionMiddleware implements Middleware
 {
     /**
-     *
      * @var ConnectionInterface
      */
     protected $connection;
 
     /**
-     *
      * @var string[]
      */
     protected $commands = [];
+
+    /**
+     * @var string[]
+     */
+    protected $excluded = [];
+
+    /**
+     * @var bool
+     */
+    protected $all = false;
 
     /**
      * Consrtuctor.
      *
      * @param ConnectionInterface $connection Connection instance.
      * @param string[] $commands A list of suported command class names.
+     * @param string[] $excluded A list of excluded command class names.
      */
-    public function __construct(ConnectionInterface $connection, array $commands = [])
+    public function __construct(ConnectionInterface $connection, array $commands = [], array $excluded = [])
     {
         $this->connection = $connection;
         foreach ($commands as $name) {
             $this->addCommand($name);
+        }
+        foreach ($excluded as $name) {
+            $this->excludeCommand($name);
         }
     }
 
@@ -77,6 +89,17 @@ class TransactionMiddleware implements Middleware
     }
 
     /**
+     *
+     * @return $this
+     */
+    public function addAll()
+    {
+        $this->all = true;
+
+        return $this;
+    }
+
+    /**
      * Add a supported command class name which should be wrapped in a transaction.
      *
      * @param string $name Command class name.
@@ -84,10 +107,35 @@ class TransactionMiddleware implements Middleware
      */
     public function addCommand($name)
     {
-        $class = App::className($name, 'Command', 'Command');
+        $class = $this->resolveClassName($name);
         $this->commands[] = ltrim($class, '\\');
 
         return $this;
+    }
+
+    /**
+     * Exclude a command class name which should not be wrapped in a transaction.
+     *
+     * @param string $name Command class name.
+     * @return $this
+     */
+    public function excludeCommand($name)
+    {
+        $class = $this->resolveClassName($name);
+        $this->excluded[] = ltrim($class, '\\');
+
+        return $this;
+    }
+
+    /**
+     * Resolves command class name.
+     *
+     * @param string $name Command class name.
+     * @return string
+     */
+    protected function resolveClassName($name)
+    {
+        return (string)App::className($name, 'Command', 'Command');
     }
 
     /**
@@ -98,8 +146,11 @@ class TransactionMiddleware implements Middleware
      */
     public function needsTransaction($command)
     {
-        $class = get_class($command);
+        $class = ltrim(get_class($command), '\\');
 
-        return in_array(ltrim($class, '\\'), $this->commands);
+        $include = $this->all || in_array($class, $this->commands);
+        $excluded = in_array($class, $this->excluded);
+
+        return $include && !$excluded;
     }
 }
