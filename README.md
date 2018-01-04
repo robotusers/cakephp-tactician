@@ -11,7 +11,7 @@ CakePHP plugin for `league/tactician`.
 ## Installation
 
 ```
-composer require robotusers/cakephp-tactician:dev-master
+composer require robotusers/cakephp-tactician
 bin/cake plugin load Robotusers/Tactician
 ```
 
