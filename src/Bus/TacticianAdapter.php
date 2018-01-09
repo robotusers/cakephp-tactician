@@ -67,7 +67,7 @@ class TacticianAdapter extends BaseAdapter
      * Handles the command.
      *
      * @param string|object $command Command instance or name.
-     * @param mixed $args Additional arguments for command.
+     * @param array<int, mixed> $args Additional arguments for command.
      * @return mixed
      */
     public function handle($command, ...$args)

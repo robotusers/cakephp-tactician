@@ -145,7 +145,7 @@ class TransactionMiddleware implements Middleware
     /**
      * Returns true if a command needs to be wrapped in a transaction.
      *
-     * @param string $command Command class name.
+     * @param object $command Command object.
      * @return bool
      */
     public function needsTransaction($command)
