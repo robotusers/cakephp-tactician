@@ -26,6 +26,7 @@ namespace Robotusers\Tactician\Test\TestCase\Console;
 
 use App\Console\TestCommand;
 use Cake\Console\CommandFactoryInterface;
+use League\Tactician\CommandBus;
 use Robotusers\Commander\CommandBusInterface;
 use Robotusers\Tactician\Console\CommandFactory;
 use Robotusers\Tactician\Core\BusApplicationInterface;
@@ -53,6 +54,26 @@ class CommandFactoryTest extends Php71TestCase
         $factory = new CommandFactory($commandFactory, $app);
         $bus1 = $factory->getCommandBus();
         $bus2 = $factory->getCommandBus();
+        $this->assertSame($bus2, $bus1);
+    }
+
+    public function testGetCommandBusTactician()
+    {
+        $commandFactory = $this->createMock(CommandFactoryInterface::class);
+        $app = $this->createMock(BusApplicationInterface::class);
+
+        $app->method('commandBus')
+            ->willReturnCallback(function () {
+                return $this->createMock(CommandBus::class);
+            });
+        $bus1 = $app->commandBus();
+        $bus2 = $app->commandBus();
+        $this->assertNotSame($bus2, $bus1);
+
+        $factory = new CommandFactory($commandFactory, $app);
+        $bus1 = $factory->getCommandBus();
+        $bus2 = $factory->getCommandBus();
+        $this->assertInstanceOf(CommandBusInterface::class, $bus1);
         $this->assertSame($bus2, $bus1);
     }
 
