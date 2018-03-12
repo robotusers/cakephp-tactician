@@ -26,23 +26,24 @@ namespace Robotusers\Tactician\Test\TestCase\Console;
 
 use App\Console\TestCommand;
 use Cake\Console\CommandFactoryInterface;
-use Cake\TestSuite\TestCase;
 use Robotusers\Commander\CommandBusInterface;
 use Robotusers\Tactician\Console\CommandFactory;
 use Robotusers\Tactician\Core\BusApplicationInterface;
+use Robotusers\Tactician\Test\TestCase\Php71TestCase;
 
 /**
  * @author Robert Pustułka <robert.pustulka@gmail.com>
  */
-class CommandFactoryTest extends TestCase
+class CommandFactoryTest extends Php71TestCase
 {
+
     public function testGetCommandBus()
     {
         $commandFactory = $this->createMock(CommandFactoryInterface::class);
         $app = $this->createMock(BusApplicationInterface::class);
 
         $app->method('commandBus')
-            ->willReturnCallback(function(){
+            ->willReturnCallback(function () {
                 return $this->createMock(CommandBusInterface::class);
             });
         $bus1 = $app->commandBus();
