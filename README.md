@@ -80,6 +80,7 @@ $factory = new TacticianCommandFactory($cakeFactory, $application);
 
 $runner = new CommandRunner($application, 'cake', $factory);
 exit($runner->run($argv));
+```
 
 #### Application hook (CakePHP 3.3+)
 
