@@ -70,7 +70,7 @@ class BusListener implements EventListenerInterface
      */
     public function __construct($commandBus, array $config = [])
     {
-        $this->config($config);
+        $this->setConfig($config);
         $this->setCommandBus($commandBus);
     }
 
@@ -118,7 +118,7 @@ class BusListener implements EventListenerInterface
      */
     public function injectCommandBus(Event $event)
     {
-        $subject = $event->subject();
+        $subject = $event->getSubject();
         if ($subject instanceof CommandBusAwareInterface) {
             $subject->setCommandBus($this->commandBus);
         }
