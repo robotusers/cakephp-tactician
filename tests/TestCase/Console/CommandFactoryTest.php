@@ -24,6 +24,7 @@
  */
 namespace Robotusers\Tactician\Test\TestCase\Console;
 
+use App\Console\TestCommand;
 use Cake\Console\CommandFactoryInterface;
 use Cake\TestSuite\TestCase;
 use Robotusers\Commander\CommandBusInterface;
@@ -52,5 +53,28 @@ class CommandFactoryTest extends TestCase
         $bus1 = $factory->getCommandBus();
         $bus2 = $factory->getCommandBus();
         $this->assertSame($bus2, $bus1);
+    }
+
+    public function testCreate()
+    {
+        $commandFactory = $this->createMock(CommandFactoryInterface::class);
+        $app = $this->createMock(BusApplicationInterface::class);
+        $commandBus = $this->createMock(CommandBusInterface::class);
+        $command = new TestCommand;
+
+        $app->method('commandBus')
+            ->willReturn($commandBus);
+
+        $commandFactory
+            ->expects($this->once())
+            ->method('create')
+            ->with(TestCommand::class)
+            ->willReturn($command);
+
+        $factory = new CommandFactory($commandFactory, $app);
+
+        $result = $factory->create(TestCommand::class);
+        $this->assertInstanceOf(TestCommand::class, $result);
+        $this->assertSame($commandBus, $result->getCommandBus());
     }
 }
