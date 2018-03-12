@@ -25,6 +25,7 @@
 
 namespace Robotusers\Tactician\Core;
 
+use Cake\Event\EventDispatcherInterface;
 use Cake\Event\EventManager;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -60,6 +61,9 @@ class BusMiddleware
     public function __construct(BusApplicationInterface $application, EventManager $eventManager = null, array $config = [])
     {
         $this->application = $application;
+        if ($eventManager === null && $application instanceof EventDispatcherInterface) {
+            $eventManager = $application->getEventManager();
+        }
         $this->eventManager = $eventManager ?: EventManager::instance();
         $this->config = $config;
     }
