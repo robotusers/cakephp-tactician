@@ -25,8 +25,10 @@
 namespace Robotusers\Tactician\Console;
 
 use Cake\Console\CommandFactoryInterface;
+use League\Tactician\CommandBus;
 use Robotusers\Commander\CommandBusAwareInterface;
 use Robotusers\Commander\CommandBusInterface;
+use Robotusers\Tactician\Bus\TacticianAdapter;
 use Robotusers\Tactician\Core\BusApplicationInterface;
 
 /**
@@ -71,7 +73,11 @@ class CommandFactory implements CommandFactoryInterface
     public function getCommandBus()
     {
         if ($this->commandBus === null) {
-            $this->commandBus = $this->app->commandBus();
+            $commandBus = $this->app->commandBus();
+            if ($commandBus instanceof CommandBus) {
+                $commandBus = new TacticianAdapter($commandBus);
+            }
+            $this->commandBus = $commandBus;
         }
 
         return $this->commandBus;
