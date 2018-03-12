@@ -60,7 +60,7 @@ class TacticianAdapter extends BaseAdapter
     {
         parent::__construct($commandBus);
 
-        $this->config($config);
+        $this->setConfig($config);
     }
 
     /**

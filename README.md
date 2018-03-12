@@ -61,6 +61,26 @@ For more information, read [the docs](https://github.com/robotusers/commander/bl
 
 Next you should configure the command bus which will be injected into your controllers and models that implement the `CommandBusAwareInterface`.
 
+#### Console (CakePHP 3.6+)
+
+For console integration Tactician plugin provides a `CommandFactory` that injects a command bus into compatible console shells and commands.
+
+Set up your `CommandRunner` as below:
+
+```php
+
+use App\Application;
+use Cake\Console\CommandRunner;
+use Cake\Console\CommandFactory;
+use Tactician\Console\CommandFactory as TacticianCommandFactory;
+
+$application = new Application(dirname(__DIR__) . '/config');
+$cakeFactory = new CommandFactory(); // or any other custom factory (ie. CakePHP DI plugin DIC-compatible factory)
+$factory = new TacticianCommandFactory($cakeFactory, $application);
+
+$runner = new CommandRunner($application, 'cake', $factory);
+exit($runner->run($argv));
+
 #### Application hook (CakePHP 3.3+)
 
 If your application supports middleware you can configure the command bus using an application hook.

@@ -1,36 +1,37 @@
 {
-	"name": "robotusers/cakephp-tactician",
-	"description": "CakePHP Tactician plugin",
-	"homepage": "https://github.com/robotusers/cakephp-tactician",
-	"type": "cakephp-plugin",
-	"license": "MIT",
-	"require": {
-		"php": ">=5.6",
-		"cakephp/core": "~3.1",
-		"cakephp/datasource": "~3.1",
-		"league/tactician": "^1.0"
-	},
-	"suggest": {
-		"cakephp/event": "If you want to use TacticianListener.",
-		"robotusers/commander": "If you want to use TacticianListener."
-	},
-	"require-dev": {
-		"cakephp/cakephp": "~3.5",
-		"cakephp/cakephp-codesniffer": "*",
-		"phpunit/phpunit": "^5.6|^6.0"
-	},
-	"autoload": {
-		"psr-4": {
-			"Robotusers\\Tactician\\": "src"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Cake\\Test\\": "vendor/cakephp/cakephp/tests",
-			"Robotusers\\Tactician\\Test\\": "tests",
-			"App\\": "tests/test_app"
-		}
-	},
+    "name": "robotusers/cakephp-tactician",
+    "description": "CakePHP Tactician plugin",
+    "homepage": "https://github.com/robotusers/cakephp-tactician",
+    "type": "cakephp-plugin",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.6",
+        "cakephp/core": "~3.4",
+        "cakephp/datasource": "~3.1",
+        "league/tactician": "^1.0"
+    },
+    "suggest": {
+        "cakephp/cakephp": "Install ^3.6 if you want to use CommandFactory.",
+        "cakephp/event": "Install ^3.4 if you want to use BusListener.",
+        "robotusers/commander": "Install ^0.2 if you want to use BusListener."
+    },
+    "require-dev": {
+        "cakephp/cakephp": "dev-3.next as 3.6.0",
+        "cakephp/cakephp-codesniffer": "*",
+        "phpunit/phpunit": "^5.6|^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Robotusers\\Tactician\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests",
+            "Robotusers\\Tactician\\Test\\": "tests",
+            "App\\": "tests/test_app"
+        }
+    },
     "scripts": {
         "check": [
             "@test",
