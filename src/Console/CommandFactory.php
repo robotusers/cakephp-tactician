@@ -26,6 +26,7 @@ namespace Robotusers\Tactician\Console;
 
 use Cake\Console\CommandFactoryInterface;
 use Robotusers\Commander\CommandBusAwareInterface;
+use Robotusers\Commander\CommandBusInterface;
 use Robotusers\Tactician\Core\BusApplicationInterface;
 
 /**
