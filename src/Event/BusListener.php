@@ -127,7 +127,7 @@ class BusListener implements EventListenerInterface
     /**
      * {@inheritDoc}
      */
-    public function implementedEvents()
+    public function implementedEvents(): array
     {
         $events = (array)$this->_config['events'];
 

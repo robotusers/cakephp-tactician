@@ -5,10 +5,10 @@
     "type": "cakephp-plugin",
     "license": "MIT",
     "require": {
-        "php": ">=5.6",
-        "cakephp/core": "~3.4",
-        "cakephp/datasource": "~3.1",
-        "league/tactician": "^1.0"
+        "php": ">=7.2",
+        "league/tactician": "^1.0",
+        "cakephp/core": "~4.0",
+        "cakephp/datasource": "~4.0"
     },
     "suggest": {
         "cakephp/cakephp": "Install ^3.6 if you want to use CommandFactory.",
@@ -16,12 +16,12 @@
         "robotusers/commander": "Install ^0.2 if you want to use BusListener."
     },
     "require-dev": {
-        "cakephp/cakephp": "~3.8.0",
         "cakephp/cakephp-codesniffer": "*",
-        "phpunit/phpunit": "^5.6|^6.0",
+        "phpunit/phpunit": "~8.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan-deprecation-rules": "^0.12.6",
-        "robotusers/commander": "^0.2.0"
+        "robotusers/commander": "^0.2.0",
+        "cakephp/cakephp": "~4.0.0"
     },
     "autoload": {
         "psr-4": {
