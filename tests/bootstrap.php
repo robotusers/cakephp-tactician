@@ -31,6 +31,6 @@ if (file_exists($root . '/config/bootstrap.php')) {
 
 require $root . '/vendor/cakephp/cakephp/tests/bootstrap.php';
 
-Plugin::load('Robotusers/Tactician', [
-    'path' => PLUGIN_ROOT . DS,
-]);
+//Plugin::load('Robotusers/Tactician', [
+//    'path' => PLUGIN_ROOT . DS,
+//]);
