@@ -33,7 +33,7 @@ use Cake\TestSuite\TestCase;
  */
 class Php71TestCase extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->skipIf(version_compare(PHP_VERSION, '7.1') < 0);
 

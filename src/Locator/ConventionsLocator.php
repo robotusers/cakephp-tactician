@@ -118,7 +118,7 @@ class ConventionsLocator extends ObjectRegistry implements HandlerLocator
     /**
      * {@inheritDoc}
      */
-    protected function _create($class, $alias, $config)
+    protected function _create($class, string $alias, array $config)
     {
         return new $class;
     }
@@ -126,7 +126,7 @@ class ConventionsLocator extends ObjectRegistry implements HandlerLocator
     /**
      * {@inheritDoc}
      */
-    protected function _resolveClassName($class)
+    protected function _resolveClassName(string $class): ?string
     {
         return App::className($class, $this->_config['handlerNamespace'], $this->_config['handlerSuffix']);
     }
@@ -134,7 +134,7 @@ class ConventionsLocator extends ObjectRegistry implements HandlerLocator
     /**
      * {@inheritDoc}
      */
-    protected function _throwMissingClassError($class, $plugin)
+    protected function _throwMissingClassError(string $class, ?string $plugin): void
     {
         if ($plugin) {
             $class = "$plugin.$class";

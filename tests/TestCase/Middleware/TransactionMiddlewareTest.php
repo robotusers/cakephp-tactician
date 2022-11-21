@@ -26,7 +26,9 @@ namespace Robotusers\Tactician\Test\TestCase\Middleware;
 
 use App\Model\Command\FooCommand;
 use Cake\Datasource\ConnectionInterface;
+use Cake\Http\Response;
 use Cake\TestSuite\TestCase;
+use Psr\Http\Message\ResponseInterface;
 use Robotusers\Tactician\Middleware\TransactionMiddleware;
 use stdClass;
 
@@ -79,25 +81,25 @@ class TransactionMiddlewareTest extends TestCase
         $next = function ($command) {
             $this->assertInstanceOf(FooCommand::class, $command);
 
-            return true;
+            return new Response();
         };
 
         $connection = $this->createMock(ConnectionInterface::class);
         $connection->expects($this->once())
             ->method('transactional')
-            ->with($this->callback(function ($callable) {
-                $this->assertTrue($callable());
-
-                return $callable;
-            }))
-            ->willReturn(true);
+//            ->with($this->callback(function ($callable) {
+////                $this->assertInstanceOf(ResponseInterface::class, $callable());
+//
+//                return $callable;
+//            }))
+            ->willReturn(new Response());
 
         $middleware = new TransactionMiddleware($connection, [
             FooCommand::class
         ]);
 
         $result = $middleware->execute($command, $next);
-        $this->assertTrue($result);
+        $this->assertInstanceOf(ResponseInterface::class, $result);
     }
 
     public function testExecuteWithoutTransaction()
@@ -106,7 +108,7 @@ class TransactionMiddlewareTest extends TestCase
         $next = function ($command) {
             $this->assertInstanceOf(FooCommand::class, $command);
 
-            return true;
+            return new Response();
         };
 
         $connection = $this->createMock(ConnectionInterface::class);
@@ -116,7 +118,7 @@ class TransactionMiddlewareTest extends TestCase
         $middleware = new TransactionMiddleware($connection);
 
         $result = $middleware->execute($command, $next);
-        $this->assertTrue($result);
+        $this->assertInstanceOf(ResponseInterface::class, $result);
     }
 
     public function commandNameProvider()
